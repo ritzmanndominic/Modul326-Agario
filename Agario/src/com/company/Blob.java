@@ -25,19 +25,17 @@ public class Blob {
     public Blob() {
     }
 
-    public void draw(Graphics g) {
-        g.setColor(color);
-        g.fillOval(coordinateX - radius, coordinateY - radius, radius, radius);
-    }
-
     public void move() {
         if (leftRight == 'd') {
             coordinateX += deltaX;
-        } else if (leftRight == 'a') {
+        }
+        if (leftRight == 'a') {
             coordinateX += deltaX;
-        } else if (upDown == 'w') {
+        }
+        if (upDown == 'w') {
             coordinateY += deltaY;
-        } else if (upDown == 's') {
+        }
+        if (upDown == 's') {
             coordinateY += deltaY;
         }
     }
@@ -49,17 +47,22 @@ public class Blob {
 
     public void moveLeft() {
         deltaX -= 1;
-        leftRight = 'd';
+        leftRight = 'a';
     }
 
     public void moveUp() {
-        deltaY += 1;
+        deltaY -= 1;
         upDown = 'w';
     }
 
     public void moveDown() {
-        deltaY -= 1;
-        upDown = 'w';
+        deltaY += 1;
+        upDown = 's';
+    }
+
+    public void draw(Graphics g) {
+        g.setColor(color);
+        g.fillOval(coordinateX - radius, coordinateY - radius, radius, radius);
     }
 
     public int getRadius() {

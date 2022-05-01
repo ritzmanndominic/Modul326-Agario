@@ -16,9 +16,8 @@ public class Main {
         theGame.setSize(1000, 1000);
         theGame.setLocation(0, 0);
         runner.getContentPane().add(theGame);
-        runner.addKeyListener(theGame);
         runner.setVisible(true);
+        runner.addKeyListener(theGame);
         theGame.run();
-
     }
 }

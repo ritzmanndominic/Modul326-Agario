@@ -10,7 +10,7 @@ public class BlobManager extends JPanel implements KeyListener {
     private Blob enemyBlob;
     private ArrayList<Blob> enemyBlobs = new ArrayList<>();
     private boolean gameOver = false;
-    Blob player = new Blob(10, Color.BLUE, 500, 500, 2, 2, 'a', 'd');
+    Blob player = new Blob(10, Color.BLUE, 500, 500, 2, 2, 'd', 's');
 
     public BlobManager() {
         gameOver = false;
@@ -32,7 +32,7 @@ public class BlobManager extends JPanel implements KeyListener {
 
     public void paint(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fill3DRect(0, 0, 1000, 1000, true);
+        g.fillRect(0, 0, 1000, 1000);
         player.draw(g);
         for (int i = 0; i < enemyBlobs.size(); i++) {
             enemyBlobs.get(i).draw(g);
@@ -45,19 +45,14 @@ public class BlobManager extends JPanel implements KeyListener {
         char c;
         c = e.getKeyChar();
 
-        switch (c) {
-            case 'a':
-                player.moveLeft();
-                break;
-            case 'd':
-                player.moveRight();
-                break;
-            case 'w':
-                player.moveUp();
-                break;
-            case 's':
-                player.moveDown();
-                break;
+        if (c == 'w') {
+            player.moveUp();
+        } else if (c == 'a') {
+            player.moveLeft();
+        } else if (c == 's') {
+            player.moveDown();
+        } else if (c == 'd') {
+            player.moveRight();
         }
     }
 
@@ -69,7 +64,8 @@ public class BlobManager extends JPanel implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        char c;
+        c = e.getKeyChar();
     }
 
     public void run() {
