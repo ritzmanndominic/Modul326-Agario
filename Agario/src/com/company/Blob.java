@@ -65,6 +65,10 @@ public class Blob {
         g.fillOval(coordinateX - radius, coordinateY - radius, radius, radius);
     }
 
+    public void eat(){
+        radius+=2;
+    }
+
     public int getRadius() {
         return radius;
     }
