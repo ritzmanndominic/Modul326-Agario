@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BlobManager extends JPanel implements KeyListener {
     private Blob food;
@@ -37,9 +38,24 @@ public class BlobManager extends JPanel implements KeyListener {
         return (Blob) builder.getBlob();
     }
 
+    public Color getRandomColor(){
+        Random rand = new Random();
+        float r = rand.nextFloat();
+        float g = rand.nextFloat();
+        float b = rand.nextFloat();
+        Color randomColor = new Color(r, g, b);
+
+        if (randomColor != Color.BLUE && randomColor != Color.GREEN) {
+            return randomColor;
+        }else {
+            return Color.MAGENTA;
+        }
+    }
     public void addFoodToField() {
+        Color randomColor = getRandomColor();
+
         if (fieldFood.size() < 20) {
-            food = createBlob(new BlobBuilder(), Color.red, fieldFood);
+            food = createBlob(new BlobBuilder(), randomColor, fieldFood);
             fieldFood.add(food);
         }
     }
@@ -47,7 +63,7 @@ public class BlobManager extends JPanel implements KeyListener {
     public void addSpecialFood() {
         if (specialFoodList.size() < 20) {
             specialFood = createBlob(new BlobBuilder(), Color.green, specialFoodList);
-            specialFood.setRadius(9);
+            specialFood.setRadius(50);
             specialFoodList.add(specialFood);
         }
     }
