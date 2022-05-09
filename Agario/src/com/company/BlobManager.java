@@ -8,7 +8,11 @@ import java.util.ArrayList;
 
 public class BlobManager extends JPanel implements KeyListener {
     private Blob food;
+
+    private Blob specialFood;
     private ArrayList<Blob> fieldFood = new ArrayList<>();
+
+    private ArrayList<Blob> specialFoodList = new ArrayList<>();
     private boolean gameOver = false;
     Blob player = new Blob(10, Color.BLUE, 500, 500, 2, 2, 'd', 's');
 
@@ -16,14 +20,14 @@ public class BlobManager extends JPanel implements KeyListener {
         gameOver = false;
     }
 
-    public Blob createFood(Builder builder) {
-        builder.setBlobColor(Color.RED);
+    public Blob createBlob(Builder builder, Color color, ArrayList<Blob> listOfBlobs) {
+        builder.setBlobColor(color);
         builder.setBlobRadius(
                 player.getRadius() - 5 + (int) (Math.random() * (30 + player.getRadius() - 10)));
 
-        for (int i = 0; i < fieldFood.size(); i++) {
-            if (player.getCoordinateX() == fieldFood.get(i).getCoordinateX() &&
-                    player.getCoordinateY() == fieldFood.get(i).getCoordinateY()) {
+        for (int i = 0; i < listOfBlobs.size(); i++) {
+            if (player.getCoordinateX() == listOfBlobs.get(i).getCoordinateX() &&
+                    player.getCoordinateY() == listOfBlobs.get(i).getCoordinateY()) {
                 builder.setBlobRadius(player.getRadius() - 5 +
                         (int) (Math.random() * (30 + player.getRadius() - 10)));
             }
@@ -35,8 +39,16 @@ public class BlobManager extends JPanel implements KeyListener {
 
     public void addFoodToField() {
         if (fieldFood.size() < 20) {
-            food = createFood(new BlobBuilder());
+            food = createBlob(new BlobBuilder(), Color.red, fieldFood);
             fieldFood.add(food);
+        }
+    }
+
+    public void addSpecialFood() {
+        if (specialFoodList.size() < 20) {
+            specialFood = createBlob(new BlobBuilder(), Color.green, specialFoodList);
+            specialFood.setRadius(9);
+            specialFoodList.add(specialFood);
         }
     }
 
@@ -44,8 +56,15 @@ public class BlobManager extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1000, 1000);
         player.draw(g);
+
+        //draw food
         for (int i = 0; i < fieldFood.size(); i++) {
             fieldFood.get(i).draw(g);
+        }
+
+        //draw enemys
+        for (int i = 0; i < specialFoodList.size(); i++) {
+            specialFoodList.get(i).draw(g);
         }
     }
 
@@ -79,8 +98,10 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     public void run() {
+
         while (!gameOver) {
             addFoodToField();
+            addSpecialFood();
 
             try {
                 Thread.sleep(0);
