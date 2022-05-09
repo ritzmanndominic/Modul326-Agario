@@ -1,5 +1,6 @@
 package com.company;
 
+import java.awt.*;
 import javax.swing.*;
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
         runner.setSize(1000, 1000);
         runner.setLayout(null);
         runner.setLocation(0, 0);
+
 
         BlobManager theGame = new BlobManager();
         theGame.setSize(1000, 1000);
