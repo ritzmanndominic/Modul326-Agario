@@ -1,12 +1,11 @@
 package com.company;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.*;
 
 public class BlobManager extends JPanel implements KeyListener {
     private Blob food;
@@ -37,11 +36,12 @@ public class BlobManager extends JPanel implements KeyListener {
             }
         }
 
-        builder.setBlobCoordinates((int) (Math.random() * (1000 - player.getRadius() * 2)), (int) (Math.random() * (1000 - player.getRadius() * 2)));
+        builder.setBlobCoordinates((int) (Math.random() * (1000 - player.getRadius() * 2)),
+                (int) (Math.random() * (1000 - player.getRadius() * 2)));
         return (Blob) builder.getBlob();
     }
 
-    public Color getRandomColor(){
+    public Color getRandomColor() {
         Random rand = new Random();
         float r = rand.nextFloat();
         float g = rand.nextFloat();
@@ -50,10 +50,11 @@ public class BlobManager extends JPanel implements KeyListener {
 
         if (randomColor != Color.BLUE && randomColor != Color.GREEN) {
             return randomColor;
-        }else {
+        } else {
             return Color.MAGENTA;
         }
     }
+
     public void addFoodToField() {
         Color randomColor = getRandomColor();
 
@@ -72,11 +73,11 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     public void paint(Graphics g) {
-        if (gameOver== true){
-                g.setColor(Color.RED);
-                g.setFont(new Font("Times New Roman", Font.BOLD, 40));
-                g.drawString("Game Over",300, 320);
-                g.drawString("Dimensions: " + counter,300, 370);
+        if (gameOver == true) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Times New Roman", Font.BOLD, 40));
+            g.drawString("Game Over", 300, 320);
+            g.drawString("Dimensions: " + counter, 300, 370);
         } else {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 1000, 1000);

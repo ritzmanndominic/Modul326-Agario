@@ -11,7 +11,8 @@ public class Blob {
     private char leftRight, upDown;
 
 
-    public Blob(int radius, Color color, int coordinateX, int coordinateY, int deltaX, int deltaY, char leftRight, char upDown) {
+    public Blob(int radius, Color color, int coordinateX, int coordinateY, int deltaX, int deltaY,
+                char leftRight, char upDown) {
         this.radius = radius;
         this.color = color;
         this.coordinateX = coordinateX;
@@ -65,8 +66,8 @@ public class Blob {
         g.fillOval(coordinateX - radius, coordinateY - radius, radius, radius);
     }
 
-    public void eat(){
-        radius+=2;
+    public void eat() {
+        radius += 2;
     }
 
     public int getRadius() {
