@@ -110,17 +110,6 @@ public class BlobManager extends JPanel implements KeyListener {
         }
     }
 
-    public void removeRadius() {
-        Timer timer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (player.getRadius() < 10) {
-                    player.setRadius(player.getRadius() - 1);
-                }
-            }
-        });
-    }
-
     @Override
     public void keyPressed(KeyEvent e) {
         char c;
