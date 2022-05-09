@@ -16,7 +16,7 @@ public class BlobManager extends JPanel implements KeyListener {
         gameOver = false;
     }
 
-    public Blob createEnemys(Builder builder) {
+    public Blob createFood(Builder builder) {
         builder.setBlobColor(Color.RED);
         builder.setBlobRadius(
                 player.getRadius() - 5 + (int) (Math.random() * (30 + player.getRadius() - 10)));
@@ -35,7 +35,7 @@ public class BlobManager extends JPanel implements KeyListener {
 
     public void addPlayers() {
         if (enemyBlobs.size() < 20) {
-            enemyBlob = createEnemys(new BlobBuilder());
+            enemyBlob = createFood(new BlobBuilder());
             enemyBlobs.add(enemyBlob);
         }
     }
