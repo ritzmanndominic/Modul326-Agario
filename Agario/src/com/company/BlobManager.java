@@ -1,6 +1,8 @@
 package com.company;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -81,20 +83,43 @@ public class BlobManager extends JPanel implements KeyListener {
         } else {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 1000, 1000);
+
             player.draw(g);
 
             //draw food
             for (int i = 0; i < fieldFood.size(); i++) {
-                fieldFood.get(i).draw(g);
+                // draw fieldfood on the screen when it doesn't overlap with player
+                if (fieldFood.get(i).getCoordinateX() != player.getCoordinateX() &&
+                        fieldFood.get(i).getCoordinateY() != player.getCoordinateY()) {
+                    fieldFood.get(i).draw(g);
+                }
             }
 
             //draw enemys
             for (int i = 0; i < specialFoodList.size(); i++) {
-                specialFoodList.get(i).draw(g);
+                // draw specialfood on the screen when it doesn't overlap with player or fieldfood
+                if (specialFoodList.get(i).getCoordinateX() != player.getCoordinateX() &&
+                        specialFoodList.get(i).getCoordinateY() != player.getCoordinateY() &&
+                        specialFoodList.get(i).getCoordinateX() !=
+                                fieldFood.get(i).getCoordinateX() &&
+                        specialFoodList.get(i).getCoordinateY() !=
+                                fieldFood.get(i).getCoordinateY()) {
+                    specialFoodList.get(i).draw(g);
+                }
             }
         }
     }
 
+    public void removeRadius() {
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (player.getRadius() < 10) {
+                    player.setRadius(player.getRadius() - 1);
+                }
+            }
+        });
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -122,26 +147,6 @@ public class BlobManager extends JPanel implements KeyListener {
     public void keyTyped(KeyEvent e) {
         char c;
         c = e.getKeyChar();
-    }
-
-    public void run() {
-        while (!gameOver) {
-            addFoodToField();
-            addSpecialFood();
-
-            try {
-                Thread.sleep(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            player.move();
-
-            checkForCollision();
-            checkForCollisionWithSpecialFood();
-
-            paintImmediately(0, 0, 1000, 1000);
-        }
     }
 
     public static int distance(int x1, int y1, int x2, int y2) {
@@ -177,4 +182,23 @@ public class BlobManager extends JPanel implements KeyListener {
             }
         }
     }
+
+    public void run() {
+        while (!gameOver) {
+            addFoodToField();
+            addSpecialFood();
+
+            try {
+                Thread.sleep(0);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            checkForCollision();
+            checkForCollisionWithSpecialFood();
+            player.move();
+
+            paintImmediately(0, 0, 1000, 1000);
+        }
+    }
+
 }
