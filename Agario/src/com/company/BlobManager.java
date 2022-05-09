@@ -76,7 +76,7 @@ public class BlobManager extends JPanel implements KeyListener {
                 g.setColor(Color.RED);
                 g.setFont(new Font("Times New Roman", Font.BOLD, 40));
                 g.drawString("Game Over",300, 320);
-                g.drawString("Dimensions: " + counter,300, 370);
+                g.drawString("Dimensions: " + counter,300, 371);
         } else {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 1000, 1000);
