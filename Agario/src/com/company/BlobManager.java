@@ -7,8 +7,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class BlobManager extends JPanel implements KeyListener {
-    private Blob enemyBlob;
-    private ArrayList<Blob> enemyBlobs = new ArrayList<>();
+    private Blob food;
+    private ArrayList<Blob> fieldFood = new ArrayList<>();
     private boolean gameOver = false;
     Blob player = new Blob(10, Color.BLUE, 500, 500, 2, 2, 'd', 's');
 
@@ -21,9 +21,9 @@ public class BlobManager extends JPanel implements KeyListener {
         builder.setBlobRadius(
                 player.getRadius() - 5 + (int) (Math.random() * (30 + player.getRadius() - 10)));
 
-        for (int i = 0; i < enemyBlobs.size(); i++) {
-            if (player.getCoordinateX() == enemyBlobs.get(i).getCoordinateX() &&
-                    player.getCoordinateY() == enemyBlobs.get(i).getCoordinateY()) {
+        for (int i = 0; i < fieldFood.size(); i++) {
+            if (player.getCoordinateX() == fieldFood.get(i).getCoordinateX() &&
+                    player.getCoordinateY() == fieldFood.get(i).getCoordinateY()) {
                 builder.setBlobRadius(player.getRadius() - 5 +
                         (int) (Math.random() * (30 + player.getRadius() - 10)));
             }
@@ -33,10 +33,10 @@ public class BlobManager extends JPanel implements KeyListener {
         return (Blob) builder.getBlob();
     }
 
-    public void addPlayers() {
-        if (enemyBlobs.size() < 20) {
-            enemyBlob = createFood(new BlobBuilder());
-            enemyBlobs.add(enemyBlob);
+    public void addFoodToField() {
+        if (fieldFood.size() < 20) {
+            food = createFood(new BlobBuilder());
+            fieldFood.add(food);
         }
     }
 
@@ -44,8 +44,8 @@ public class BlobManager extends JPanel implements KeyListener {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 1000, 1000);
         player.draw(g);
-        for (int i = 0; i < enemyBlobs.size(); i++) {
-            enemyBlobs.get(i).draw(g);
+        for (int i = 0; i < fieldFood.size(); i++) {
+            fieldFood.get(i).draw(g);
         }
     }
 
@@ -80,7 +80,7 @@ public class BlobManager extends JPanel implements KeyListener {
 
     public void run() {
         while (!gameOver) {
-            addPlayers();
+            addFoodToField();
 
             try {
                 Thread.sleep(0);
@@ -101,16 +101,16 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     public void checkForCollision() {
-        for (int i = 0; i < enemyBlobs.size(); i++) {
+        for (int i = 0; i < fieldFood.size(); i++) {
             if (distance(player.getCoordinateX(), player.getCoordinateY(),
-                    enemyBlobs.get(i).getCoordinateX(),
-                    enemyBlobs.get(i).getCoordinateY()) <
-                    player.getRadius() + enemyBlobs.get(i).getRadius()) {
-                if (player.getRadius() > enemyBlobs.get(i).getRadius()) {
-                    enemyBlobs.remove(i);
+                    fieldFood.get(i).getCoordinateX(),
+                    fieldFood.get(i).getCoordinateY()) <
+                    player.getRadius() + fieldFood.get(i).getRadius()) {
+                if (player.getRadius() > fieldFood.get(i).getRadius()) {
+                    fieldFood.remove(i);
                     player.setRadius(player.getRadius() + 5);
                 } else {
-                    enemyBlobs.get(i).setRadius(enemyBlobs.get(i).getRadius() + player.getRadius());
+                    fieldFood.get(i).setRadius(fieldFood.get(i).getRadius() + player.getRadius());
                     player.setRadius(0);
                     gameOver = true;
                 }
