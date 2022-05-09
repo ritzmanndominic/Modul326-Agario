@@ -4,11 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class BlobManager extends JPanel implements KeyListener {
     private Blob food;
+
+    private int counter = 0;
 
     private Blob specialFood;
     private ArrayList<Blob> fieldFood = new ArrayList<>();
@@ -69,18 +72,25 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 1000, 1000);
-        player.draw(g);
+        if (gameOver== true){
+                g.setColor(Color.RED);
+                g.setFont(new Font("Times New Roman", Font.BOLD, 40));
+                g.drawString("Game Over",300, 320);
+                g.drawString("Dimensions: " + counter,300, 370);
+        } else {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 1000, 1000);
+            player.draw(g);
 
-        //draw food
-        for (int i = 0; i < fieldFood.size(); i++) {
-            fieldFood.get(i).draw(g);
-        }
+            //draw food
+            for (int i = 0; i < fieldFood.size(); i++) {
+                fieldFood.get(i).draw(g);
+            }
 
-        //draw enemys
-        for (int i = 0; i < specialFoodList.size(); i++) {
-            specialFoodList.get(i).draw(g);
+            //draw enemys
+            for (int i = 0; i < specialFoodList.size(); i++) {
+                specialFoodList.get(i).draw(g);
+            }
         }
     }
 
@@ -114,7 +124,6 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     public void run() {
-
         while (!gameOver) {
             addFoodToField();
             addSpecialFood();
@@ -147,6 +156,7 @@ public class BlobManager extends JPanel implements KeyListener {
                 if (player.getRadius() > fieldFood.get(i).getRadius()) {
                     fieldFood.remove(i);
                     player.setRadius(player.getRadius() + 5);
+                    counter = player.getRadius();
                 } else {
                     fieldFood.get(i).setRadius(fieldFood.get(i).getRadius() + player.getRadius());
                     player.setRadius(0);
