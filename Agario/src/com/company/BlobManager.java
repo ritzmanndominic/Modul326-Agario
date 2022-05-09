@@ -128,6 +128,7 @@ public class BlobManager extends JPanel implements KeyListener {
             player.move();
 
             checkForCollision();
+            checkForCollisionWithSpecialFood();
 
             paintImmediately(0, 0, 1000, 1000);
         }
@@ -151,6 +152,17 @@ public class BlobManager extends JPanel implements KeyListener {
                     player.setRadius(0);
                     gameOver = true;
                 }
+            }
+        }
+    }
+
+    public void checkForCollisionWithSpecialFood() {
+        for (int i = 0; i < specialFoodList.size(); i++) {
+            if (distance(player.getCoordinateX(), player.getCoordinateY(),
+                    specialFoodList.get(i).getCoordinateX(),
+                    specialFoodList.get(i).getCoordinateY()) <
+                    player.getRadius() + specialFoodList.get(i).getRadius()) {
+                gameOver = true;
             }
         }
     }
