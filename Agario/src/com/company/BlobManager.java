@@ -96,7 +96,7 @@ public class BlobManager extends JPanel implements KeyListener {
             g.setColor(Color.RED);
             g.setFont(new Font("Times New Roman", Font.BOLD, 40));
             g.drawString("Game Over", 300, 320);
-            g.drawString("Dimensions: " + counter, 300, 370);
+            g.drawString("Dimensions: " + (int) counter, 300, 370);
         } else if (gameOver == false && player.getRadius() > 100) {
             g.setColor(Color.GREEN);
             g.setFont(new Font("Times New Roman", Font.BOLD, 40));
