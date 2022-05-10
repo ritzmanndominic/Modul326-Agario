@@ -4,11 +4,11 @@ import java.awt.*;
 
 public interface Builder {
 
-    int setBlobRadius(int radius);
+    double setBlobRadius(double radius);
 
     Color setBlobColor(Color color);
 
-    int setBlobCoordinates(int x, int y);
+    double setBlobCoordinates(double x, double y);
 
     Object getBlob();
 }
