@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.swing.*;
 
 public class BlobManager extends JPanel implements KeyListener {
+
     private Blob food;
 
     private double counter = 0;
@@ -31,18 +32,20 @@ public class BlobManager extends JPanel implements KeyListener {
     public Blob createBlob(Builder builder, Color color, ArrayList<Blob> listOfBlobs) {
         builder.setBlobColor(color);
         builder.setBlobRadius(
-                player.getRadius() - 6 + (Math.random() * (30 + player.getRadius() - 10)));
+                (int) player.getRadius() - 6 + (Math.random() * (30 + player.getRadius() - 10)));
 
         for (int i = 0; i < listOfBlobs.size(); i++) {
             if (player.getCoordinateX() == listOfBlobs.get(i).getCoordinateX() &&
                     player.getCoordinateY() == listOfBlobs.get(i).getCoordinateY()) {
-                builder.setBlobRadius(player.getRadius() - 5 +
+                builder.setBlobRadius((int) player.getRadius() - 5 +
                         (Math.random() * (30 + player.getRadius() - 10)));
             }
         }
 
-        builder.setBlobCoordinates((Math.random() * (1000 - player.getRadius() * 2)),
-                (Math.random() * (1000 - player.getRadius() * 2)));
+        builder.setBlobCoordinates((Math.random() * (1000 - player.getRadius())),
+                (Math.random() * (1000 - player.getRadius())));
+        // builder.setBlobCoordinates((int) (Math.random() * (int) (1000 - player.getRadius() * 2)),
+        //       (int) (Math.random() * (int) (1000 - player.getRadius() * 2)));
         return (Blob) builder.getBlob();
     }
 
@@ -194,7 +197,7 @@ public class BlobManager extends JPanel implements KeyListener {
             if (distance(player.getCoordinateX(), player.getCoordinateY(),
                     specialFoodList.get(i).getCoordinateX(),
                     specialFoodList.get(i).getCoordinateY()) <
-                    player.getRadius() + specialFoodList.get(i).getRadius()) {
+                    player.getRadius() + specialFoodList.get(i).getRadius() - 15) {
                 gameOver = true;
             }
         }
@@ -209,11 +212,6 @@ public class BlobManager extends JPanel implements KeyListener {
             addFoodToField();
             addSpecialFood();
 
-            try {
-                Thread.sleep(0);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             checkForCollision();
             checkForCollisionWithSpecialFood();
             player.move();
@@ -221,5 +219,4 @@ public class BlobManager extends JPanel implements KeyListener {
             paintImmediately(0, 0, 1000, 1000);
         }
     }
-
 }
