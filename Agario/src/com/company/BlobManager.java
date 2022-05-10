@@ -25,6 +25,11 @@ public class BlobManager extends JPanel implements KeyListener {
         gameOver = false;
     }
 
+    /*
+    Ein Blob wird hier erstellt. Es spielt in dieser Methode noch keine Rolle,
+    ob es schlussendlich ein food oder ein specialfood wird.
+    Sie erhalten ebenfalls eine random position.
+     */
     public Blob createBlob(Builder builder, Color color, ArrayList<Blob> listOfBlobs) {
         builder.setBlobColor(color);
         builder.setBlobRadius(
@@ -43,6 +48,9 @@ public class BlobManager extends JPanel implements KeyListener {
         return (Blob) builder.getBlob();
     }
 
+    /*
+    Es wird eine random Farbe generiert. Die Farbe darf aber nicht Blau oder Grün sein.
+     */
     public Color getRandomColor() {
         Random rand = new Random();
         float r = rand.nextFloat();
@@ -57,6 +65,10 @@ public class BlobManager extends JPanel implements KeyListener {
         }
     }
 
+    /*
+    Hier wird food zu einer Liste hinzugefügt.
+    Es wird die createBlob Methode aufgerufen und den Blob hinzugefügt.
+     */
     public void addFoodToField() {
         Color randomColor = getRandomColor();
 
@@ -66,6 +78,10 @@ public class BlobManager extends JPanel implements KeyListener {
         }
     }
 
+    /*
+    Hier wird specialfood zu einer Liste hinzugefügt.
+    Es wird die createBlob Methode aufgerufen und den Blob hinzugefügt.
+    */
     public void addSpecialFood() {
         if (specialFoodList.size() < 20) {
             specialFood = createBlob(new BlobBuilder(), Color.green, specialFoodList);
@@ -74,6 +90,9 @@ public class BlobManager extends JPanel implements KeyListener {
         }
     }
 
+    /*
+    Hier wird alles gezeichnedt. Die Map, Blobs und den Endbildschirm.
+     */
     public void paint(Graphics g) {
         if (gameOver == true) {
             g.setColor(Color.RED);
@@ -142,6 +161,11 @@ public class BlobManager extends JPanel implements KeyListener {
         return (int) Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
     }
 
+    /*
+    Hier wird geprüft, ob der Spieler ein food oder ein specialfood berührt.
+    Wenn das food kleiner ist, wird der Spieler grösser.
+    Wenn das food grösser ist stirbt der Spieler.
+     */
     public void checkForCollision() {
         for (int i = 0; i < fieldFood.size(); i++) {
             if (distance(player.getCoordinateX(), player.getCoordinateY(),
@@ -161,6 +185,10 @@ public class BlobManager extends JPanel implements KeyListener {
         }
     }
 
+    /*
+    Überprüft, ob der Spieler ein specialfood berührt.
+    Wenn es der Fall ist, stirbt der Spieler.
+     */
     public void checkForCollisionWithSpecialFood() {
         for (int i = 0; i < specialFoodList.size(); i++) {
             if (distance(player.getCoordinateX(), player.getCoordinateY(),
@@ -172,6 +200,10 @@ public class BlobManager extends JPanel implements KeyListener {
         }
     }
 
+    /*
+    Eigentlich unsere Main-Methode. Sie läuft solange, bis gamOver auf true ist.
+    GameOver ist auf true, wenn der Spieler stirbt.
+     */
     public void run() {
         while (!gameOver) {
             addFoodToField();
