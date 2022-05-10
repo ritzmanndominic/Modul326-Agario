@@ -71,6 +71,15 @@ public class BlobManager extends JPanel implements KeyListener {
         Color randomColor = getRandomColor();
 
         if (fieldFood.size() < 40) {
+            int amount = 0;
+            for (int i = 0; i < fieldFood.size(); i++) {
+                if (amount <= 10 && player.getRadius() < fieldFood.get(i).getRadius()) {
+                    food = createBlob(new BlobBuilder(), randomColor, fieldFood);
+                    fieldFood.add(food);
+                    amount++;
+
+                }
+            }
             food = createBlob(new BlobBuilder(), randomColor, fieldFood);
             fieldFood.add(food);
         }
@@ -97,12 +106,7 @@ public class BlobManager extends JPanel implements KeyListener {
             g.setFont(new Font("Times New Roman", Font.BOLD, 40));
             g.drawString("Game Over", 300, 320);
             g.drawString("Dimensions: " + (int) counter, 300, 370);
-        } else if (gameOver == false && player.getRadius() > 100) {
-            g.setColor(Color.GREEN);
-            g.setFont(new Font("Times New Roman", Font.BOLD, 40));
-            g.drawString("You Won", 300, 320);
-            g.drawString("Dimensions: " + counter, 300, 370);
-        } else {
+        } else if (gameOver == false) {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 1000, 1000);
 
