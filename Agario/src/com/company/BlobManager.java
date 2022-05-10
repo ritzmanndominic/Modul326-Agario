@@ -24,9 +24,9 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Ein Blob wird hier erstellt. Es spielt in dieser Methode noch keine Rolle,
-    ob es schlussendlich ein food oder ein specialfood wird.
-    Sie erhalten ebenfalls eine random position.
+    A blob is created here. It does not play a role in this method yet,
+    whether it will be a food or a specialfood.
+    You will also get a random position.
      */
     public Blob createBlob(Builder builder, Color color, ArrayList<Blob> listOfBlobs) {
         builder.setBlobColor(color);
@@ -47,7 +47,7 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Es wird eine random Farbe generiert. Die Farbe darf aber nicht Blau oder Grün sein.
+     A random color is generated. But the color must not be blue or green.
      */
     public Color getRandomColor() {
         Random rand = new Random();
@@ -64,8 +64,8 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Hier wird food zu einer Liste hinzugefügt.
-    Es wird die createBlob Methode aufgerufen und den Blob hinzugefügt.
+    Here food is added to a list.
+    The createBlob method is called and the blob is added.
      */
     public void addFoodToField() {
         Color randomColor = getRandomColor();
@@ -77,8 +77,8 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Hier wird specialfood zu einer Liste hinzugefügt.
-    Es wird die createBlob Methode aufgerufen und den Blob hinzugefügt.
+    Here specialfood is added to a list.
+    The createBlob method is called and the blob is added.
     */
     public void addSpecialFood() {
         if (specialFoodList.size() < 5) {
@@ -89,7 +89,7 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Hier wird alles gezeichnedt. Die Map, Blobs und den Endbildschirm.
+    Everything is drawn here. The map, blobs and the final screen.
      */
     public void paint(Graphics g) {
         if (gameOver == true) {
@@ -157,9 +157,9 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Hier wird geprüft, ob der Spieler ein food oder ein specialfood berührt.
-    Wenn das food kleiner ist, wird der Spieler grösser.
-    Wenn das food grösser ist stirbt der Spieler.
+    Here it is checked whether the player touches a food or a specialfood.
+    If the food is smaller, the player gets bigger.
+    If the food is bigger, the player dies.
      */
     public void checkForCollision() {
         for (int i = 0; i < fieldFood.size(); i++) {
@@ -182,8 +182,8 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Überprüft, ob der Spieler ein specialfood berührt.
-    Wenn es der Fall ist, stirbt der Spieler.
+    Checks if the player touches a specialfood.
+    If it is the case, the player dies.
      */
     public void checkForCollisionWithSpecialFood() {
         for (int i = 0; i < specialFoodList.size(); i++) {
@@ -197,8 +197,8 @@ public class BlobManager extends JPanel implements KeyListener {
     }
 
     /*
-    Eigentlich unsere Main-Methode. Sie läuft solange, bis gamOver auf true ist.
-    GameOver ist auf true, wenn der Spieler stirbt.
+    Actually our main method. It runs until gamOver is true.
+    GameOver is true when the player dies.
      */
     public void run() {
         while (!gameOver) {
