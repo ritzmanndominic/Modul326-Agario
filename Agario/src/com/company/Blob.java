@@ -4,15 +4,15 @@ import java.awt.*;
 
 public class Blob {
 
-    private int radius;
+    private double radius;
     private Color color;
-    private int coordinateX, coordinateY;
-    private int deltaX, deltaY;
+    private double coordinateX, coordinateY;
+    private double deltaX, deltaY;
     private char leftRight, upDown;
 
 
-    public Blob(int radius, Color color, int coordinateX, int coordinateY, int deltaX, int deltaY,
-                char leftRight, char upDown) {
+    public Blob(double radius, Color color, double coordinateX, double coordinateY, double deltaX,
+                double deltaY, char leftRight, char upDown) {
         this.radius = radius;
         this.color = color;
         this.coordinateX = coordinateX;
@@ -63,18 +63,18 @@ public class Blob {
 
     public void draw(Graphics g) {
         g.setColor(color);
-        g.fillOval(coordinateX - radius, coordinateY - radius, radius, radius);
+        g.fillOval((int) coordinateX, (int) coordinateY, (int) radius, (int) radius);
     }
 
     public void eat() {
         radius += 2;
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
+    public void setRadius(double radius) {
         this.radius = radius;
     }
 
@@ -86,19 +86,19 @@ public class Blob {
         return this.color = color;
     }
 
-    public int getCoordinateX() {
+    public double getCoordinateX() {
         return coordinateX;
     }
 
-    public void setCoordinateX(int coordinateX) {
+    public void setCoordinateX(double coordinateX) {
         this.coordinateX = coordinateX;
     }
 
-    public int getCoordinateY() {
+    public double getCoordinateY() {
         return coordinateY;
     }
 
-    public void setCoordinateY(int coordinateY) {
+    public void setCoordinateY(double coordinateY) {
         this.coordinateY = coordinateY;
     }
 }

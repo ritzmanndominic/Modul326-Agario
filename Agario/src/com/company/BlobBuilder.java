@@ -7,7 +7,7 @@ public class BlobBuilder implements Builder {
     Blob blob = new Blob();
 
     @Override
-    public int setBlobRadius(int radius) {
+    public double setBlobRadius(double radius) {
         blob.setRadius(radius);
         return this.blob.getRadius();
     }
@@ -19,7 +19,7 @@ public class BlobBuilder implements Builder {
     }
 
     @Override
-    public int setBlobCoordinates(int x, int y) {
+    public double setBlobCoordinates(double x, double y) {
         blob.setCoordinateX(x);
         blob.setCoordinateY(y);
         return blob.getCoordinateX() + blob.getCoordinateY();

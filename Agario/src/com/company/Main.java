@@ -12,7 +12,6 @@ public class Main {
         runner.setLayout(null);
         runner.setLocation(0, 0);
 
-
         BlobManager theGame = new BlobManager();
         theGame.setSize(1000, 1000);
         theGame.setLocation(0, 0);
